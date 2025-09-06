@@ -1,40 +1,38 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ST10405508_PROG7312_Part1.Data;
-using ST10405508_PROG7312_Part1.Models;
 using ST10405508_PROG7312_Part1.Interfaces;
+using ST10405508_PROG7312_Part1.Models;
 
 namespace ST10405508_PROG7312_Part1.Repository
 {
-    public class DocumentRepository : IDocumentInterface
+    public class FeedbackRepository : IFeedbackInterface
     {
         private readonly AppDbContext _context;
-
-        public DocumentRepository(AppDbContext context)
-        {
+        public FeedbackRepository(AppDbContext context) 
+        { 
             _context = context;
         }
 
-        public bool Add(Document document)
+        public bool Add(Feedback feedback)
         {
-
-            _context.Add(document);
+            _context.Add(feedback); 
             return Save();
         }
 
-        public bool Delete(Document document)
+        public bool Delete(Feedback feedback)
         {
-            _context.Remove(document);
+            _context.Remove(feedback);
             return Save();
         }
-        //A custom method that will return the specific document (see ASP.NET Core MVC 2022 - 7. Dependency Injection + Repository Pattern, 2022):
-        public async Task<Document> GetDocumentByIdAsync(string id)
+        //A custom method that will return the specific feedback (see ASP.NET Core MVC 2022 - 7. Dependency Injection + Repository Pattern, 2022):
+        public async Task<Feedback> GetByIdAsync(String id)
         {
-            return await _context.documents.FirstOrDefaultAsync(i => i.documentID == id);
+            return await _context.feedbacks.FirstOrDefaultAsync(i => i.documentID == id);
         }
 
-        public async Task<IEnumerable<Document>> GetAll()
+        public async Task<IEnumerable<Feedback>> GetAll()
         {
-            return await _context.documents.ToListAsync();
+            return await _context.feedbacks.ToListAsync();
         }
 
         public bool Save()
@@ -42,6 +40,11 @@ namespace ST10405508_PROG7312_Part1.Repository
             //making sure all the data is saved to the database using entity framework (see ASP.NET Core MVC 2022 - 7. Dependency Injection + Repository Pattern, 2022):
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
+        }
+
+        public bool Update(Feedback feedback)
+        {
+            throw new NotImplementedException();
         }
     }
 }

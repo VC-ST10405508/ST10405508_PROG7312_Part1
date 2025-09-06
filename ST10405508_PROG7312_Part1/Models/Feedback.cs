@@ -1,18 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ST10405508_PROG7312_Part1.Models
 {
-    public class Document
+    public class Feedback
     {
-        //vars for document info with primary key for entity framework (see ASP.NET Core MVC 2022 - 2. Models, 2022):
+        //vars for user info with primary + foreign key inclusion for entity framework (see ASP.NET Core MVC 2022 - 2. Models, 2022):
         [Key]
+        public string feedbackID { get; set; }
+        public string title { get; set; }
+        public string description { get; set; }
+        public string status { get; set; }
+        public string date {  get; set; }
+        [ForeignKey("Document")]
         public string documentID { get; set; }
-        public string documentName { get; set; }
-        public string documentType { get; set; }
 
-        public byte[] documentData { get; set; }
-
-
+    
     }
 }
 //reference List:
