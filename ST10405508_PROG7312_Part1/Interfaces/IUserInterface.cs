@@ -7,7 +7,8 @@ namespace ST10405508_PROG7312_Part1.Interfaces
 
         //creating an interface to perform crud operations for user (see ASP.Net Core MVC 2022 - 7, Dependency Injection + Repository Pattern, 2022):
         Task<IEnumerable<User>> GetAll();
-
+        Task<int> GetCount();
+        Task<User> Login(string username);
         bool Add(User user);
         bool Update(User user);
         bool Delete(User user);

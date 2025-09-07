@@ -7,6 +7,9 @@ namespace ST10405508_PROG7312_Part1.Interfaces
         //interface that will deal with crud operations (see ASP.Net Core MVC 2022 - 7, Dependency Injection + Repository Pattern, 2022):
         Task<IEnumerable<Feedback>> GetAll();
 
+        Task<Feedback> GetById(string id);
+
+        Task<int> GetCount();
         bool Add(Feedback feedback);
         bool Delete(Feedback feedback);
         bool Update(Feedback feedback);

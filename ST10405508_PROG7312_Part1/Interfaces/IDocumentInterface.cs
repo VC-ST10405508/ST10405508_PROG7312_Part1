@@ -6,6 +6,10 @@ namespace ST10405508_PROG7312_Part1.Interfaces
     {
         //interface that will deal with crud operations (see ASP.Net Core MVC 2022 - 7, Dependency Injection + Repository Pattern, 2022):
         Task<IEnumerable<Document>> GetAll();
+
+        Task<int> GetCount();
+
+        Task<Document> GetById(string id);
         bool Add(Document document);
         bool Delete(Document document);
         bool Save();

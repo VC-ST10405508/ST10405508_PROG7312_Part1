@@ -7,6 +7,8 @@ namespace ST10405508_PROG7312_Part1.Interfaces
         //creating an interface to perform crud operations for report issues (see ASP.Net Core MVC 2022 - 7, Dependency Injection + Repository Pattern, 2022):
         Task<IEnumerable<ReportIssue>> GetAll();
 
+        Task<ReportIssue> GetByIdAsync(string id);
+        Task<int> GetCount();
         bool Add(ReportIssue issue);
         bool Remove(ReportIssue issue);
         bool Update(ReportIssue issue);

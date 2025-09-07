@@ -20,6 +20,14 @@ namespace ST10405508_PROG7312_Part1.Repository
             _appDbContext.Add(user);
             return Save();
         }
+        public async Task<User> Login(string username)
+        {
+            return await _appDbContext.users.FirstOrDefaultAsync(u => u.username == username || u.email == username);
+        }
+        public async Task<int> GetCount()
+        {
+            return await _appDbContext.users.CountAsync();
+        }
 
         public bool Delete(User user)
         {

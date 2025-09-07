@@ -26,9 +26,14 @@ namespace ST10405508_PROG7312_Part1.Repository
             return await _appDbContext.reportIssues.ToListAsync();
         }
         //A custom method that will return the specific report issue (see ASP.NET Core MVC 2022 - 7. Dependency Injection + Repository Pattern, 2022):
-        public async Task<ReportIssue> GetReportIssueByIdAsync(string id)
+        public async Task<ReportIssue> GetByIdAsync(string id)
         {
             return await _appDbContext.reportIssues.FirstOrDefaultAsync(i => i.reportID == id);
+        }
+
+        public async Task<int> GetCount()
+        {
+            return await _appDbContext.reportIssues.CountAsync();
         }
 
         public bool Remove(ReportIssue issue)

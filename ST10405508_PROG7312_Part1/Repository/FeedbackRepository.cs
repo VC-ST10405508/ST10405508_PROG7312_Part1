@@ -25,9 +25,13 @@ namespace ST10405508_PROG7312_Part1.Repository
             return Save();
         }
         //A custom method that will return the specific feedback (see ASP.NET Core MVC 2022 - 7. Dependency Injection + Repository Pattern, 2022):
-        public async Task<Feedback> GetByIdAsync(String id)
+        public async Task<Feedback> GetById(string id)
         {
             return await _context.feedbacks.FirstOrDefaultAsync(i => i.documentID == id);
+        }
+        public async Task<int> GetCount()
+        {
+            return await _context.feedbacks.CountAsync();
         }
 
         public async Task<IEnumerable<Feedback>> GetAll()

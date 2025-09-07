@@ -7,9 +7,6 @@ namespace ST10405508_PROG7312_Part1.Models
         //vars for document info with primary key for entity framework (see ASP.NET Core MVC 2022 - 2. Models, 2022):
         [Key]
         public string documentID { get; set; }
-        public string documentName { get; set; }
-        public string documentType { get; set; }
-
         public byte[] documentData { get; set; }
 
 

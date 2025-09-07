@@ -20,6 +20,10 @@ namespace ST10405508_PROG7312_Part1.Repository
             _context.Add(document);
             return Save();
         }
+        public async Task<int> GetCount()
+        {
+            return await _context.documents.CountAsync();
+        }
 
         public bool Delete(Document document)
         {
@@ -27,7 +31,7 @@ namespace ST10405508_PROG7312_Part1.Repository
             return Save();
         }
         //A custom method that will return the specific document (see ASP.NET Core MVC 2022 - 7. Dependency Injection + Repository Pattern, 2022):
-        public async Task<Document> GetDocumentByIdAsync(string id)
+        public async Task<Document> GetById(string id)
         {
             return await _context.documents.FirstOrDefaultAsync(i => i.documentID == id);
         }
