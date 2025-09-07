@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ST10405508_PROG7312_Part1.Data;
 using ST10405508_PROG7312_Part1.Interfaces;
 using ST10405508_PROG7312_Part1.Models;
 
@@ -8,9 +9,15 @@ namespace ST10405508_PROG7312_Part1.Controllers
     public class UserController : Controller
     {
         private readonly IUserInterface _userInterface;
+        private readonly Logger<UserController> _logger;
         public string errMsg = "";
         public string successMsg = "";
-
+    
+        public UserController(IUserInterface userInterface, Logger<UserController> logger)
+        {
+            _userInterface = userInterface;
+            _logger = logger;
+        }
         public IActionResult Register()
         {
             return View();
@@ -28,108 +35,104 @@ namespace ST10405508_PROG7312_Part1.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password)
         {
-            errMsg = "Invalid username or password";
+            string errMsg = "Invalid username or password";
+
             try
             {
-                if (!String.IsNullOrEmpty(username) && !String.IsNullOrEmpty(password))
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 {
-                    var user = await _userInterface.Login(username);
-                    if (user != null)
-                    {
-                        var passwordHasher = new PasswordHasher<User>();
-                        var verificationResult = passwordHasher.VerifyHashedPassword(null, user.password, password);
+                    ViewBag.errorMsg = "All fields are required.";
+                    return View();
+                }
 
-                        if (verificationResult == PasswordVerificationResult.Success)
-                        {
-                            //using httpcontext session to keep track of which user is signed in (Anderson, Larkin & LaRose, 2025):
-                            HttpContext.Session.SetString("uID", user.userId);
-                            ViewBag.successMsg = "Successfully logged in";
-                            return RedirectToAction("Index", "Home");
-                        }
-                        else
-                        {
-                            ViewBag.errorMsg = errMsg;
-                            return View();
-                        }
-                    }
-                    else
-                    {
-                        ViewBag.errorMsg = errMsg;
-                        return View();
-                    }
+                var user = await _userInterface.Login(username);
 
+                if (user == null)
+                {
+                    _logger.LogWarning("Failed login attempt for username {Username}", username);
+                    ViewBag.errorMsg = errMsg;
+                    return View();
+                }
+
+                var passwordHasher = new PasswordHasher<User>();
+                var verificationResult = passwordHasher.VerifyHashedPassword(user, user.password, password);
+
+                if (verificationResult == PasswordVerificationResult.Success)
+                {
+                    HttpContext.Session.SetString("uID", user.userId);
+                    _logger.LogInformation("User {Username} logged in successfully", username);
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ViewBag.errorMsg = "All Fields are required";
+                    _logger.LogWarning("Failed login attempt for username {Username}", username);
+                    ViewBag.errorMsg = errMsg;
                     return View();
                 }
             }
             catch (Exception ex)
             {
-                errMsg = ex.Message;
-                ViewBag.errorMsg = errMsg;
+                _logger.LogError(ex, "Exception during login for username {Username}", username);
+                ViewBag.errorMsg = "An unexpected error occurred. Please contact support.";
                 return View();
             }
         }
+
         [HttpPost]
         public IActionResult Register(string name, string email, string password)
         {
-            ViewBag.errorMsg = null;
-            ViewBag.successMsg = null;
-            //getting the current amount of users so that we can see make a unique id
-            var userID = "U" +_userInterface.GetCount();
-            User newUser = new User();
-
-            //setting the data that will be saved to the database
             try
             {
-                if (!String.IsNullOrEmpty(name) && !String.IsNullOrEmpty(email) && !String.IsNullOrEmpty(password))
-                {
-                    if (ValidPassword(password))
-                    {
-                        if (ValidEmail(email))
-                        {
-                            newUser.username = name;
-                            newUser.email = email;
-                            newUser.password = password;
-                            newUser.userId = userID;
-                            newUser.role = "User";
-
-                            _userInterface.Add(newUser);
-
-                            ViewBag.successMsg = "You have successfully created an account";
-                            //using httpcontext session to keep track of which user is signed in (Anderson, Larkin & LaRose, 2025):
-                            HttpContext.Session.SetString("uID", userID);
-
-                            RedirectToPage("Index", "Home");
-                        }
-                        else
-                        {
-                            ViewBag.errorMsg = "Please enter a valid email";
-                            return View();
-                        }
-                    }
-                    else
-                    {
-                        ViewBag.errorMsg = "password needs to be at least 8 characters long, contain special character, number/s, upper and lower cases letters";
-                        return View();
-                    }
-                }
-                else
+                ViewBag.errorMsg = null;
+                ViewBag.successMsg = null;
+                //getting the current amount of users so that we can see make a unique id
+                if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 {
                     ViewBag.errorMsg = "All fields are required.";
                     return View();
                 }
+
+                if (!ValidEmail(email))
+                {
+                    ViewBag.errorMsg = "Please enter a valid email.";
+                    return View();
+                }
+
+                if (!ValidPassword(password))
+                {
+                    ViewBag.errorMsg = "Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character.";
+                    return View();
+                }
+
+
+                //setting the data that will be saved to the database
+                var userID = "U" + Guid.NewGuid().ToString("N");
+                User newUser = new User
+                {
+                    userId = userID,
+                    username = name,
+                    email = email,
+                    role = "User"
+                };
+
+                var passwordHasher = new PasswordHasher<User>();
+                newUser.password = passwordHasher.HashPassword(newUser, password);
+
+                _userInterface.Add(newUser);
+
+                HttpContext.Session.SetString("uID", userID);
+                _logger.LogInformation("New user registered: {Email}", email);
+
+                ViewBag.successMsg = "You have successfully created an account";
+                return RedirectToAction("Index", "Home");
+
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "Exception occured during registration");
                 ViewBag.errorMsg = "Please contact support - an unexpected error occured: " + ex.Message;
                 return View();
             }
-
-
-            return View();
         }
         private Boolean ValidPassword(string password)
         {
