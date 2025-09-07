@@ -2,32 +2,29 @@
 
 ## A simple ASP.NET Core MVC web application built with:
 
-~ Visual Studio (latest version)
+- Visual Studio (latest version)
 
-~ ASP.NET Core MVC
+- ASP.NET Core MVC
 
-~ Entity Framework Core with SQLite (serverless so its easy to run on any machine :D)
+- Entity Framework Core with SQLite (serverless so its easy to run on any machine :D)
 
-~ Dependency Injection using the Repository + Interface pattern
+- Dependency Injection using the Repository + Interface pattern
 
 ## Features:
 
--> User can create and login to their account
--> Report issues - users can report issues in the municipality area
--> Feedback user engagement strategy - users can provide feedback on thier experience using the platform
--> more features coming soon (stay tuned)
+- User can create and login to their account
+- Report issues - users can report issues in the municipality area
+- Feedback user engagement strategy - users can provide feedback on thier experience using the platform
+- more features coming soon (stay tuned)
 
 ## Considerations:
 
 - Repository pattern for clean separation of concerns
-
 - Entity Framework Core for data persistence (SQLite .db file, no external server required)
-
 - Auto-create database on startup with EnsureCreated()
-
 - MVC pattern (Models, Views, Controllers)
-
 - Dependency Injection configured in Program.cs
+- Password hashing for some security
 
 
 
