@@ -1,23 +1,21 @@
 # South African Municipality platform
 
-## A simple ASP.NET Core MVC web application built with:
+# A simple ASP.NET Core MVC web application built with:
 
 - Visual Studio (latest version)
-
 - ASP.NET Core MVC
-
 - Entity Framework Core with SQLite (serverless so its easy to run on any machine :D)
-
 - Dependency Injection using the Repository + Interface pattern
+- password hashing 
 
-## Features:
+# Features:
 
 - User can create and login to their account
 - Report issues - users can report issues in the municipality area
 - Feedback user engagement strategy - users can provide feedback on thier experience using the platform
 - more features coming soon (stay tuned)
 
-## Considerations:
+# Considerations:
 
 - Repository pattern for clean separation of concerns
 - Entity Framework Core for data persistence (SQLite .db file, no external server required)
@@ -28,23 +26,22 @@
 
 
 
-## Technologies: 
+# Technologies: 
 
 - .NET 8 / ASP.NET Core MVC
 - Entity Framework Core (SQLite)
 - Dependency Injection
 - C# 12
 
-## Getting Started to run program on your side: 
+# Getting Started to run program on your side: 
 Prerequisites:
 
 - .NET 8 SDK
 - Visual Studio (latest version)
 - SQLite (no setup required, database auto-generates)
 
-## Setup
-- Close repository
-open visual studio and click clone repository then copy past the following:
+# Setup
+- Open visual studio and click clone repository then copy past the following:
 https://github.com/VC-ST10405508/ST10405508_PROG7312_Part1.git 
 
 - open the project
@@ -56,7 +53,7 @@ Once project is open run it using IIS Express
 - Enjoy
 hope this guide helps and that you are able to user the platform as intended
 
-## Database
+# Database
 
 - SQLite database file is stored in Data/app.db
 - EF Core DbContext defines tables for User, Document, and ReportIssue
