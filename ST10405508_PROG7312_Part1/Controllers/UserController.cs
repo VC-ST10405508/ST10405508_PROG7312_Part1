@@ -64,7 +64,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
                 if (verificationResult == PasswordVerificationResult.Success)
                 {
                     //using session.setString - might change this to claim system in part 2/3
-                    HttpContext.Session.SetString("uID", user.userId);
+                    HttpContext.Session.SetString("uID", user.userID);
                     _logger.LogInformation("User {Username} logged in successfully", username);
                     return RedirectToAction("Index", "Home");
                 }
@@ -114,7 +114,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
                 var userID = "U" + Guid.NewGuid().ToString("N");
                 User newUser = new User
                 {
-                    userId = userID,
+                    userID = userID,
                     username = name,
                     email = email,
                     role = "User"

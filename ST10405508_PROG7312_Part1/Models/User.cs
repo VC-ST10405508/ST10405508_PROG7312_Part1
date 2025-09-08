@@ -6,7 +6,7 @@ namespace ST10405508_PROG7312_Part1.Models
     {
         //vars for user info with primary key inclusion for entity framework (see ASP.NET Core MVC 2022 - 2. Models, 2022):
         [Key]
-        public string userId { get; set; }
+        public string userID { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public string email { get; set; }

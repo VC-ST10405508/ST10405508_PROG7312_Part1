@@ -12,8 +12,8 @@ namespace ST10405508_PROG7312_Part1.Models
         public string description { get; set; }
         public string status { get; set; }
         public string date {  get; set; }
-        [ForeignKey("Document")]
-        public string documentID { get; set; }
+        [ForeignKey("User")]
+        public string userID { get; set; }
 
     
     }
