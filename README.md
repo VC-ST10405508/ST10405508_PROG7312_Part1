@@ -1,12 +1,7 @@
 # South African Municipality platform
 
-# A simple ASP.NET Core MVC web application built with:
-
-- Visual Studio (latest version)
-- ASP.NET Core MVC
-- Entity Framework Core with SQLite (serverless so its easy to run on any machine :D)
-- Dependency Injection using the Repository + Interface pattern
-- password hashing 
+South African municipality platform designed to help improve the municipality community and strive for a
+system where citizens can contribute to a brighter future
 
 # Features:
 

@@ -8,6 +8,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
 {
     public class UserController : Controller
     {
+        // interface and logger declartions (Teddy Smith, 2022):
         private readonly IUserInterface _userInterface;
         private readonly Logger<UserController> _logger;
         public string errMsg = "";
@@ -18,6 +19,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
             _userInterface = userInterface;
             _logger = logger;
         }
+        //making pages viewable without any information being recieved/sent (Teddy Smith, 2022):
         public IActionResult Register()
         {
             return View();
@@ -31,6 +33,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
         {
             return View();
         }
+        // Method for logging a user in  using the http post method and entity framework (Teddy Smith, 2022):
 
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password)
@@ -39,6 +42,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
 
             try
             {
+                //data validation to make sure that fields recived are indeed filled in (Nick Champsas, 2023):
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 {
                     ViewBag.errorMsg = "All fields are required.";
@@ -53,12 +57,13 @@ namespace ST10405508_PROG7312_Part1.Controllers
                     ViewBag.errorMsg = errMsg;
                     return View();
                 }
-
+                //Checking if the hashed passworded - stored in db - matchs password recieved (Kaminiski, 2025)
                 var passwordHasher = new PasswordHasher<User>();
                 var verificationResult = passwordHasher.VerifyHashedPassword(user, user.password, password);
 
                 if (verificationResult == PasswordVerificationResult.Success)
                 {
+                    //using session.setString - might change this to claim system in part 2/3
                     HttpContext.Session.SetString("uID", user.userId);
                     _logger.LogInformation("User {Username} logged in successfully", username);
                     return RedirectToAction("Index", "Home");
@@ -85,13 +90,13 @@ namespace ST10405508_PROG7312_Part1.Controllers
             {
                 ViewBag.errorMsg = null;
                 ViewBag.successMsg = null;
-                //getting the current amount of users so that we can see make a unique id
+                //Making sure fields recieved are not empty (Nick Champsas, 2023):
                 if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 {
                     ViewBag.errorMsg = "All fields are required.";
                     return View();
                 }
-
+                //extra data validation to check valid email and password (Nick Champsas, 2023):
                 if (!ValidEmail(email))
                 {
                     ViewBag.errorMsg = "Please enter a valid email.";
@@ -115,11 +120,12 @@ namespace ST10405508_PROG7312_Part1.Controllers
                     role = "User"
                 };
 
+                //using a hashword password to store a hashed password for security (Kaminski, 2023):
                 var passwordHasher = new PasswordHasher<User>();
                 newUser.password = passwordHasher.HashPassword(newUser, password);
 
                 _userInterface.Add(newUser);
-
+                //using httpcontext to set current user. Might change to claim system or identity for part 2/3
                 HttpContext.Session.SetString("uID", userID);
                 _logger.LogInformation("New user registered: {Email}", email);
 
@@ -136,10 +142,10 @@ namespace ST10405508_PROG7312_Part1.Controllers
         }
         private Boolean ValidPassword(string password)
         {
-            // Define the flag as false by default
+            //Flag var that will return if the password is valid or not
             Boolean flag = false;
 
-            // Check if password length is at least 8 characters
+            // Check if password length is at least 8 characters (Nick Champsas, 2023):
             if (password.Length >= 8)
             {
                 // Check if password contains at least one uppercase letter, one lowercase letter, one digit, and one special character
@@ -148,7 +154,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
                 bool hasDigit = password.Any(char.IsDigit);
                 bool hasSpecialChar = password.Any(ch => !char.IsLetterOrDigit(ch));
 
-                // If all conditions are met, set flag to true
+                // If all conditions are met, set flag to true (Nick Champsas, 2023):
                 if (hasUpper && hasLower && hasDigit && hasSpecialChar)
                 {
                     flag = true;
@@ -163,7 +169,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
         {
             Boolean validEmail = false;
 
-            // Check if email contains '@' and '.' with basic validation
+            // Check if email contains '@' and '.' with basic validation (Nick Champsas, 2023):
             if (!string.IsNullOrEmpty(email) && email.Contains("@") && email.Contains("."))
             {
                 // Simple additional check for email format - must contain at least one '@' and '.' after '@'
@@ -185,3 +191,9 @@ namespace ST10405508_PROG7312_Part1.Controllers
 //Reference list:
 
 //Anderson, R., Larkin, K. And LaRose, D. 2025. Session and state management in ASP.NET Core, 24 April 2025. [Online]. Available at: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-9.0 [Accessed 6 September 2025].
+
+//Kaminski, M. 2025. How Does the Default ASP.NET Core Identity Password Hasher Work?, 24 May 2024. [Online]. Available at: https://code-maze.com/aspnetcore-default-asp-net-core-identity-password-hasher/ [Accessed 8 September 2025].
+
+//Nick Champsas, 2023. Cleaning up Your Validation Code in .NET. [Video Online] Available at: https://www.youtube.com/watch?v=J2tBNTDMf1o [Accessed 7 September 2025].
+
+//Teddy Smith, 2022. ASP.NET Core MVC 2022 - 7. Dependency Injection + Repository Pattern. [Video Online] Available at: https://www.youtube.com/watch?v=o3258sYHhng&list=PL82C6-O4XrHde_urqhKJHH-HTUfTK6siO&index=7 [Accessed 7 September 2025].
