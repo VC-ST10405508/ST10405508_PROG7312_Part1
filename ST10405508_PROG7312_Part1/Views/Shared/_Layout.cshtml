@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ST10405508_PROG7312_Part1.styles.css" asp-append-version="true" />
+    <!--Added bootstrap lib for icons (BootStrap, 2025):-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
@@ -26,7 +27,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <!-- Check if user is logged in -->
+                        <!-- Check if user is logged in  (BoostMyTool, 2022):-->
                         @if (Context.Session.GetString("uID") == null || Context.Session.GetString("uID") == "")
                         {
                             <li class="nav-item">
@@ -64,3 +65,14 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+<!--
+    Reference list:
+
+    BoostMyTool. 2022. Create ASP.NET Core Web Application With SQL Server Database Connection and CRUD Operations. [Online Video] Available at: https://www.youtube.com/watch?v=T-e554Zt3n4&ab_channel=BoostMyTool [Accessed 8 September 2025].
+
+    Bootstrap. 2025. Bootstrap 5 Documentation. [Online]. Available at: https://getbootstrap.com/docs/5.3/getting-started/introduction/
+    [Accessed 8 September 2025].
+
+    Bootstrap Icons. 2025. Bootstrap Icons Documentation. [Online]. Available at: https://icons.getbootstrap.com/
+    [Accessed 8 September 2025].
+ -->

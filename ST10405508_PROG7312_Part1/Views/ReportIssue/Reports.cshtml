@@ -3,11 +3,12 @@
 @{
     ViewData["Title"] = "Reports";
 }
-
+<a asp-controller="Home" asp-action="Index" class="btn btn-primary">back</a>
 <h2>All Reports</h2>
 
 @if (!Model.Any())
 {
+    <!--If no data exists yet displays this paragraph (BoostMyTool, 2022):-->
     <p>No reports have been submitted yet.</p>
 }
 else
@@ -15,6 +16,7 @@ else
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
+                <!--Creating table headings (BoostMyTool, 2022):-->
                 <th>Report ID</th>
                 <th>Name</th>
                 <th>Category</th>
@@ -28,6 +30,7 @@ else
             @foreach (var report in Model)
             {
                 <tr>
+                    <!--displaying the report info (BoostMyTool, 2022):-->
                     <td>@report.reportID</td>
                     <td>@report.reportName</td>
                     <td>@report.reportCategory</td>
@@ -40,3 +43,9 @@ else
         </tbody>
     </table>
 }
+<!--
+Reference List:
+
+BoostMyTool. 2022. Create ASP.NET Core Web Application With SQL Server Database Connection and CRUD Operations. [Online Video] Available at: https://www.youtube.com/watch?v=T-e554Zt3n4&ab_channel=BoostMyTool [Accessed 8 September 2025].
+
+-->

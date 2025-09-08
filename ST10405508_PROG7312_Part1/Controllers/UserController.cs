@@ -65,7 +65,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
 
                 if (verificationResult == PasswordVerificationResult.Success)
                 {
-                    //using session.setString - might change this to claim system in part 2/3
+                    //using session.setString - might change this to claim system in part 2/3 (Anderson, larkin & LaRose, 2025):
                     HttpContext.Session.SetString("uID", user.userID);
                     _logger.LogInformation("User {Username} logged in successfully", username);
                     return RedirectToAction("Index", "Home");
@@ -127,7 +127,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
                 newUser.password = passwordHasher.HashPassword(newUser, password);
 
                 _userInterface.Add(newUser);
-                //using httpcontext to set current user. Might change to claim system or identity for part 2/3
+                //using httpcontext to set current user. Might change to claim system or identity for part 2/3 (Anderson, larkin & LaRose, 2025):
                 HttpContext.Session.SetString("uID", userID);
                 _logger.LogInformation("New user registered: {Email}", email);
 

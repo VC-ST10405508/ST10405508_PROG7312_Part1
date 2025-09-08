@@ -14,7 +14,7 @@ namespace ST10405508_PROG7312_Part1.Repository
         {
             _appDbContext = appDbContext;
         }
-        //predefined SQL Entityframework CRUD operations that return to the save method int his class (see ASP.NET Core MVC 2022 - 7. Dependency Injection + Repository Pattern, 2022):
+        //predefined SQL Entityframework CRUD operations that return to the save method int his class (Teddy Smith, 2022):
         public bool Add(User user)
         {
             _appDbContext.Add(user);
@@ -42,7 +42,7 @@ namespace ST10405508_PROG7312_Part1.Repository
 
         public bool Save()
         {
-            //making sure all the data is saved to the database using entity framework (see ASP.NET Core MVC 2022 - 7. Dependency Injection + Repository Pattern, 2022):
+            //making sure all the data is saved to the database using entity framework (Teddy Smith, 2022):
             var saved = _appDbContext.SaveChanges();
             return saved > 0 ? true : false;
         }
@@ -56,4 +56,4 @@ namespace ST10405508_PROG7312_Part1.Repository
 }
 //Reference List:
 
-//ASP.NET Core MVC 2022 - 7. Dependency Injection + Repository Pattern. 2022. Youtube video, added by Teddy Smith. [Online]. Avaliable at: https://www.youtube.com/watch?v=o3258sYHhng&list=PL82C6-O4XrHde_urqhKJHH-HTUfTK6siO&index=8&ab_channel=TeddySmith [Accessed 6 September 2025].
+//Teddy Smith. 2022. ASP.NET Core MVC 2022 - 7. Dependency Injection + Repository Pattern. [Video Online]. Avaliable at: https://www.youtube.com/watch?v=o3258sYHhng&list=PL82C6-O4XrHde_urqhKJHH-HTUfTK6siO&index=8&ab_channel=TeddySmith [Accessed 6 September 2025].

@@ -1,5 +1,36 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<ST10405508_PROG7312_Part1.Models.Feedback>
+
 @{
+    ViewData["Title"] = "My Feedbacks";
+}
+<a asp-controller="Home" asp-action="Index" class="btn btn-primary">back</a>
+<h2>My Feedbacks</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">You have not submitted any feedback yet or you are not logged in. please login</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Date Submitted</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var feedback in Model)
+            {
+                <tr>
+                    <td>@feedback.title</td>
+                    <td>@feedback.description</td>
+                    <td>@feedback.status</td>
+                    <td>@feedback.date</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }

@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Login";
 }
-
+<a asp-controller="Home" asp-action="Index" class="btn btn-primary">back</a>
 <h2>Login</h2>
 
 <div class="row">
@@ -10,11 +10,11 @@
         {
             <div class="alert alert-danger">@ViewBag.errorMsg</div>
         }
-
+        <!--Creating labels and input texts for the login fields (BoostMyTool, 2022): -->
         <form asp-action="Login" method="post">
             <div class="form-group mb-3">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username" required />
+                <label for="username">Username/Email</label>
+                <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username/email" required />
             </div>
             <div class="form-group mb-3">
                 <label for="password">Password</label>
@@ -22,5 +22,14 @@
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
+        <br/>
+        <div>
+         <p>Dont have an account? Click the register button and create one today :D</p>
+        <a asp-controller="User" asp-action="Register" class="btn btn-primary">Register</a>
+        </div>
     </div>
 </div>
+<!--
+
+    BoostMyTool. 2022. Create ASP.NET Core Web Application With SQL Server Database Connection and CRUD Operations. [Online Video] Available at: https://www.youtube.com/watch?v=T-e554Zt3n4&ab_channel=BoostMyTool [Accessed 8 September 2025].
+-->

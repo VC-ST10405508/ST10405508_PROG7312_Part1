@@ -6,43 +6,59 @@
 
 <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
 
-    <!-- Add Report -->
+    <!-- Add Report card created with bootstrap card and icon (Bootstrap, 2025):-->
     <div class="col">
         <div class="card h-100 text-center">
             <div class="card-body">
                 <i class="bi bi-file-earmark-plus" style="font-size: 3rem;"></i>
                 <h5 class="card-title mt-2">Add Report</h5>
-                <p class="card-text">Submit a new issue report.</p>
+                <p class="card-text">Submit a new issue report.</p> 
+                <!-- Directing the user to the addreport page (Microsoft, 2025):-->
                 <a asp-controller="ReportIssue" asp-action="AddReport" class="btn btn-primary">Go</a>
             </div>
         </div>
     </div>
 
-    <!-- View All Reports -->
+    <!-- View All Reports  card created with bootstrap card and icon (Bootstrap, 2025):-->
     <div class="col">
         <div class="card h-100 text-center">
             <div class="card-body">
                 <i class="bi bi-card-list" style="font-size: 3rem;"></i>
                 <h5 class="card-title mt-2">View Reports</h5>
                 <p class="card-text">See all reported issues.</p>
+                <!-- Directing the user to the Reports page (Microsoft, 2025):-->
                 <a asp-controller="ReportIssue" asp-action="Reports" class="btn btn-primary">Go</a>
             </div>
         </div>
     </div>
 
-    <!-- Feedback -->
+    <!-- Feedback card created with bootstrap card and icon (Bootstrap, 2025): -->
     <div class="col">
         <div class="card h-100 text-center">
             <div class="card-body">
                 <i class="bi bi-chat-left-text" style="font-size: 3rem;"></i>
-                <h5 class="card-title mt-2">Feedback</h5>
+                <h5 class="card-title mt-2">Add Feedback</h5>
                 <p class="card-text">Provide feedback or suggestions.</p>
-                <a asp-controller="Feedback" asp-action="Index" class="btn btn-primary">Go</a>
+                <!-- Directing the user to the Feedback page (Microsoft, 2025):-->
+                <a asp-controller="Feedback" asp-action="AddFeedback" class="btn btn-primary">Go</a>
             </div>
         </div>
     </div>
 
-    <!-- Local Events -->
+    <!-- Feedback card created with bootstrap card and icon (Bootstrap, 2025): -->
+    <div class="col">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="bi bi-chat-left-text" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-2">View your Feedbacks</h5>
+                <p class="card-text">View your feedback or suggestions.</p>
+                <!-- Directing the user to the Feedback page (Microsoft, 2025):-->
+                <a asp-controller="Feedback" asp-action="ViewFeedback" class="btn btn-primary">Go</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Local Events card created with bootstrap card and icon (Bootstrap, 2025): -->
     <div class="col">
         <div class="card h-100 text-center">
             <div class="card-body">
@@ -54,7 +70,7 @@
         </div>
     </div>
 
-    <!-- Service Request (Placeholder) -->
+    <!-- Service request card created with bootstrap card and icon (Bootstrap, 2025): -->
     <div class="col">
         <div class="card h-100 text-center">
             <div class="card-body">
@@ -68,7 +84,7 @@
 
 </div>
 
-<!-- Local Events Modal -->
+<!-- Local services card created with bootstrap card and icon. Also used code snippets on bootstrap to get the pop-up (Bootstrap, 2025): -->
 <div class="modal fade" id="localEventsModal" tabindex="-1" aria-labelledby="localEventsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -85,3 +101,18 @@
         </div>
     </div>
 </div>
+<!--
+Reference list:
+
+MicrosoftLearn. 2025. ASP.NET Core MVC Views. [Online]. Available at: https://learn.microsoft.com/en-us/aspnet/core/mvc/views/overview?view=aspnetcore-9.0 [Accessed 8 September 2025].
+
+MicrosoftLearn. 2025. Working with Forms in ASP.NET Core MVC. [Online]. Available at: https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-9.0 [Accessed 8 September 2025].
+
+Bootstrap. 2025. Bootstrap 5.3 Snippets. [Online]. Available at: https://getbootstrap.com/docs/5.3/examples/ [Accessed 8 September 2025].
+
+Bootstrap. 2025. Bootstrap 5 Documentation. [Online]. Available at: https://getbootstrap.com/docs/5.3/getting-started/introduction/ [Accessed 8 September 2025].
+
+Bootstrap Icons. 2025. Bootstrap Icons Documentation. [Online]. Available at: https://icons.getbootstrap.com/ [Accessed 8 September 2025].
+
+
+-->

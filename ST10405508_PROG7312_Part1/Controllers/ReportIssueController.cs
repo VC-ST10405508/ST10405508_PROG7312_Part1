@@ -28,15 +28,21 @@ namespace ST10405508_PROG7312_Part1.Controllers
         }
         public async Task<IActionResult> Reports()
         {
-            //making sure the claimhistory returns the claims - update this to show specific lecturers claims, if you finish all other functionality (See ASP.NET Core MVC 2022 - 5. Views, 2022):
+            //making sure the claimhistory returns the claims - update this to show specific lecturers claims, if you finish all other functionality (Teddy Smith, 2022):
             var reports = await _reportIssueInterface.GetAll();
             return View(reports);
         }
 
-        //Add report function. Using an IFormFile to recieve the document (Microsoft, 2025):
+        //Add report function. Using an IFormFile to recieve the document (MicrosoftLearn, 2025):
         [HttpPost]
         public IActionResult AddReport(ReportIssue report, IFormFile? documentFile)
         {
+            //fethcing the users id from the current context (Anderson, Larkin & LaRose, 2025):
+            if (HttpContext.Session.GetString("uID") == "" || HttpContext.Session.GetString("uID") == null)
+            {
+                ViewBag.ErrorMsg = "Must Sign in First!";
+                return View();
+            }
             //creating vars that will be used inside the view to display success or error (Geeksforgeeks, 2022):
             ViewBag.SuccessMsg = null;
             ViewBag.ErrorMsg = null;
@@ -48,10 +54,10 @@ namespace ST10405508_PROG7312_Part1.Controllers
 
                 //getting the current logged in user through the session that was set (Anderson, Larking & LaRose, 2025):
                 report.userID = HttpContext.Session.GetString("uID");
-                //converting file to bytes if a file was uploaded (Microsoft, 2025):
+                //converting file to bytes if a file was uploaded (MicrosoftLearn, 2025):
                 if (documentFile != null && documentFile.Length != 0)
                 {
-                    // setting ids to be unique for the database
+                    // setting ids to be unique for the database (MicrosoftLearn, 2025):
                     var documentID = "D" + Guid.NewGuid().ToString("N"); ;
                     report.documentID = documentID;
                     using var ms = new MemoryStream();
@@ -102,6 +108,8 @@ namespace ST10405508_PROG7312_Part1.Controllers
 //Geeksforgeeks. 2024. Different Types of HTML Helpers in ASP.NET MVC, 24 August 2022. [Online]. Avaliable at: https://www.geeksforgeeks.org/different-types-of-html-helpers-in-asp-net-mvc/ [Accessed 6 September 2025].
 
 //MicrosoftLearn. 2025. Upload files in ASP.NET Core, 9 August 2024. [Online]. Avaliable at: https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0  [Accessed 8 September 2025].
+
+//MicrosoftLearn. 2025. Guid.NewGuid Method. [Online]. Available at: https://learn.microsoft.com/en-us/dotnet/api/system.guid.newguid?view=net-9.0 [Accessed 8 September 2025].
 
 //Teddy Smith, 2022. ASP.NET Core MVC 2022 - 7. Dependency Injection + Repository Pattern. [Video Online]. Avaliable at: https://www.youtube.com/watch?v=o3258sYHhng&list=PL82C6-O4XrHde_urqhKJHH-HTUfTK6siO&index=8&ab_channel=TeddySmith [Accessed 6 September 2025]. 
 

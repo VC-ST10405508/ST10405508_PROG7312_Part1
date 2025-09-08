@@ -3,11 +3,12 @@
 @{
     ViewData["Title"] = "Report an Issue";
 }
-
+<a asp-controller="Home" asp-action="Index" class="btn btn-primary">back</a>
 <h2>Report an Issue</h2>
 
 <div class="row">
     <div class="col-md-8">
+        <!--Checks if the error msg or success msg exists. if it does then it display them (MicrosoftLearn, 2025): -->
         @if (ViewBag.ErrorMsg != null)
         {
             <div class="alert alert-danger">@ViewBag.ErrorMsg</div>
@@ -16,37 +17,59 @@
         {
             <div class="alert alert-success">@ViewBag.SuccessMsg</div>
         }
-
+        <!--Add report view page with labels, text inputs and a button to submit the form request (BoostMyTool, 2022):-->
         <form asp-action="addReport" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="reportName" class="form-label">Report Name</label>
                 <input type="text" class="form-control" name="reportName" id="reportName" placeholder="Enter report name" required />
             </div>
+            <!--Category (BoostMyTool, 2022): -->
             <div class="mb-3">
                 <label for="reportCategory" class="form-label">Category</label>
-                <input type="text" class="form-control" name="reportCategory" id="reportCategory" placeholder="Enter category" required />
+                <select class="form-select" id="reportCategory" name="reportCategory" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="Loadshedding or power outage">Load shedding or power outage</option>
+                    <option value="pothole or road problems">pothole or road problems</option>
+                    <option value="Criminal activity">Criminal activity</option>
+                    <option value="Other">Other</option>
+                </select>
             </div>
+            <!--Description (BoostMyTool, 2022): -->
             <div class="mb-3">
                 <label for="reportDescription" class="form-label">Description</label>
                 <textarea class="form-control" name="reportDescription" id="reportDescription" rows="4" placeholder="Describe the issue" required></textarea>
             </div>
+            <!--Location (BoostMyTool, 2022): -->
             <div class="mb-3">
                 <label for="location" class="form-label">Location</label>
                 <input type="text" class="form-control" name="location" id="location" placeholder="Enter location" required />
             </div>
+            <!--Status (BoostMyTool, 2022): -->
             <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
                 <input type="text" class="form-control" name="status" id="status" value="Pending" readonly />
             </div>
+            <!--Report Date-->
             <div class="mb-3">
                 <label for="reportDate" class="form-label">Report Date</label>
                 <input type="date" class="form-control" name="reportDate" id="reportDate" required />
             </div>
+            <!--Document being sent in IFormFile Type (MicrosoftLearn, 2025):-->
             <div class="mb-3">
                 <label for="documentFile" class="form-label">Attach Document (Optional)</label>
                 <input type="file" class="form-control" name="documentFile" id="documentFile" />
             </div>
+
             <button type="submit" class="btn btn-primary">Submit Report</button>
         </form>
     </div>
 </div>
+<!--
+Reference List:
+
+BoostMyTool. 2022. Create ASP.NET Core Web Application With SQL Server Database Connection and CRUD Operations. [Online Video] Available at: https://www.youtube.com/watch?v=T-e554Zt3n4&ab_channel=BoostMyTool [Accessed 8 September 2025].
+
+Microsoft Learn. 2025. Working with Forms in ASP.NET Core MVC. [Online]. Available at: https://learn.microsoft.com/en-us/aspnet/core/mvc/models/validation?view=aspnetcore-9.0 [Accessed 8 September 2025].
+
+MicrosoftLearn. 2025. Upload Files in ASP.NET Core. [Online]. Available at: https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0 [Accessed 8 September 2025].
+-->
