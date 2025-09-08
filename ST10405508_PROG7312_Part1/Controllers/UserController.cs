@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ST10405508_PROG7312_Part1.Data;
 using ST10405508_PROG7312_Part1.Interfaces;
 using ST10405508_PROG7312_Part1.Models;
+using Microsoft.Extensions.Logging;
 
 namespace ST10405508_PROG7312_Part1.Controllers
 {
@@ -10,11 +11,11 @@ namespace ST10405508_PROG7312_Part1.Controllers
     {
         // interface and logger declartions (Teddy Smith, 2022):
         private readonly IUserInterface _userInterface;
-        private readonly Logger<UserController> _logger;
+        private readonly ILogger<UserController> _logger;
         public string errMsg = "";
         public string successMsg = "";
     
-        public UserController(IUserInterface userInterface, Logger<UserController> logger)
+        public UserController(IUserInterface userInterface, ILogger<UserController> logger)
         {
             _userInterface = userInterface;
             _logger = logger;
@@ -31,6 +32,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
 
         public IActionResult Logout()
         {
+            HttpContext.Session.SetString("uID", "");
             return View();
         }
         // Method for logging a user in  using the http post method and entity framework (Teddy Smith, 2022):

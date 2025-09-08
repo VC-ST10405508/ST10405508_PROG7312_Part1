@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ST10405508_PROG7312_Part1.Models;
 
 namespace ST10405508_PROG7312_Part1.Controllers
 {
@@ -10,6 +11,9 @@ namespace ST10405508_PROG7312_Part1.Controllers
         }
 
         [HttpPost]
-        public IActionResult 
+        public IActionResult AddFeedback(Feedback feedback)
+            {
+            return View();
+            }
     }
 }

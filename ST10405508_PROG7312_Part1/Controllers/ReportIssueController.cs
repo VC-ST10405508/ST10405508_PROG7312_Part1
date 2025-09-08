@@ -22,7 +22,10 @@ namespace ST10405508_PROG7312_Part1.Controllers
             _documentInterface = documentInterface;
             _logger = logger;
         }
-
+        public IActionResult AddReport()
+        {
+            return View();
+        }
         public async Task<IActionResult> Reports()
         {
             //making sure the claimhistory returns the claims - update this to show specific lecturers claims, if you finish all other functionality (See ASP.NET Core MVC 2022 - 5. Views, 2022):
@@ -32,7 +35,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
 
         //Add report function. Using an IFormFile to recieve the document (Microsoft, 2025):
         [HttpPost]
-        public IActionResult addReport(ReportIssue report, IFormFile? documentFile)
+        public IActionResult AddReport(ReportIssue report, IFormFile? documentFile)
         {
             //creating vars that will be used inside the view to display success or error (Geeksforgeeks, 2022):
             ViewBag.SuccessMsg = null;
@@ -40,7 +43,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
             try
             {
                 //setting report id for unique report
-                var reportID = "R" + _reportIssueInterface.GetCount();
+                var reportID = "R" + Guid.NewGuid().ToString("N");
                 report.reportID = reportID;
 
                 //getting the current logged in user through the session that was set (Anderson, Larking & LaRose, 2025):
@@ -49,7 +52,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
                 if (documentFile != null && documentFile.Length != 0)
                 {
                     // setting ids to be unique for the database
-                    var documentID = "D" + _documentInterface.GetCount();
+                    var documentID = "D" + Guid.NewGuid().ToString("N"); ;
                     report.documentID = documentID;
                     using var ms = new MemoryStream();
                     documentFile.CopyTo(ms);

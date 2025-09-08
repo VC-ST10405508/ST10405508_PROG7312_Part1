@@ -1,8 +1,87 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h2>Welcome to the Portal</h2>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+
+    <!-- Add Report -->
+    <div class="col">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="bi bi-file-earmark-plus" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-2">Add Report</h5>
+                <p class="card-text">Submit a new issue report.</p>
+                <a asp-controller="ReportIssue" asp-action="AddReport" class="btn btn-primary">Go</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- View All Reports -->
+    <div class="col">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="bi bi-card-list" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-2">View Reports</h5>
+                <p class="card-text">See all reported issues.</p>
+                <a asp-controller="ReportIssue" asp-action="Reports" class="btn btn-primary">Go</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback -->
+    <div class="col">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="bi bi-chat-left-text" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-2">Feedback</h5>
+                <p class="card-text">Provide feedback or suggestions.</p>
+                <a asp-controller="Feedback" asp-action="Index" class="btn btn-primary">Go</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Local Events -->
+    <div class="col">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="bi bi-calendar-event" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-2">Local Events</h5>
+                <p class="card-text">Check upcoming local events.</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#localEventsModal">Go</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Service Request (Placeholder) -->
+    <div class="col">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <i class="bi bi-tools" style="font-size: 3rem;"></i>
+                <h5 class="card-title mt-2">Service Request</h5>
+                <p class="card-text">New feature coming soon.</p>
+                <button class="btn btn-secondary" onclick="alert('Feature coming soon!')">Go</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Local Events Modal -->
+<div class="modal fade" id="localEventsModal" tabindex="-1" aria-labelledby="localEventsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="localEventsModalLabel">Local Events</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Will be implemented in near future. Stay tuned!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

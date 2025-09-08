@@ -1,5 +1,52 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ST10405508_PROG7312_Part1.Models.ReportIssue
+
 @{
+    ViewData["Title"] = "Report an Issue";
 }
+
+<h2>Report an Issue</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        @if (ViewBag.ErrorMsg != null)
+        {
+            <div class="alert alert-danger">@ViewBag.ErrorMsg</div>
+        }
+        @if (ViewBag.SuccessMsg != null)
+        {
+            <div class="alert alert-success">@ViewBag.SuccessMsg</div>
+        }
+
+        <form asp-action="addReport" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="reportName" class="form-label">Report Name</label>
+                <input type="text" class="form-control" name="reportName" id="reportName" placeholder="Enter report name" required />
+            </div>
+            <div class="mb-3">
+                <label for="reportCategory" class="form-label">Category</label>
+                <input type="text" class="form-control" name="reportCategory" id="reportCategory" placeholder="Enter category" required />
+            </div>
+            <div class="mb-3">
+                <label for="reportDescription" class="form-label">Description</label>
+                <textarea class="form-control" name="reportDescription" id="reportDescription" rows="4" placeholder="Describe the issue" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" name="location" id="location" placeholder="Enter location" required />
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <input type="text" class="form-control" name="status" id="status" value="Pending" readonly />
+            </div>
+            <div class="mb-3">
+                <label for="reportDate" class="form-label">Report Date</label>
+                <input type="date" class="form-control" name="reportDate" id="reportDate" required />
+            </div>
+            <div class="mb-3">
+                <label for="documentFile" class="form-label">Attach Document (Optional)</label>
+                <input type="file" class="form-control" name="documentFile" id="documentFile" />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Report</button>
+        </form>
+    </div>
+</div>
