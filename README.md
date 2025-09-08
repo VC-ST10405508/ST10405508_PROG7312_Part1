@@ -29,6 +29,7 @@ system where citizens can contribute to a brighter future
 - C# 12
 - Draw.io (for erd) link: https://drive.google.com/file/d/1mmTC3eAcUm0aNeFVnf82BR9ZOFJVxOLx/view?usp=sharing
 - Bootstrap
+- utilizes Lists<>
 
 # Getting Started to run program on your side: 
 Prerequisites:
