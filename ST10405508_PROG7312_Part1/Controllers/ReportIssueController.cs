@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ST10405508_PROG7312_Part1.Interfaces;
 using ST10405508_PROG7312_Part1.Models;
+using System.Net.Mime;
+using System.Threading.Tasks;
 
 
 namespace ST10405508_PROG7312_Part1.Controllers
@@ -35,7 +37,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
 
         //Add report function. Using an IFormFile to recieve the document (MicrosoftLearn, 2025):
         [HttpPost]
-        public IActionResult AddReport(ReportIssue report, IFormFile? documentFile)
+        public async Task<IActionResult> AddReport(ReportIssue report, IFormFile? documentFile)
         {
             //fethcing the users id from the current context (Anderson, Larkin & LaRose, 2025):
             if (HttpContext.Session.GetString("uID") == "" || HttpContext.Session.GetString("uID") == null)
@@ -61,14 +63,17 @@ namespace ST10405508_PROG7312_Part1.Controllers
                     var documentID = "D" + Guid.NewGuid().ToString("N"); ;
                     report.documentID = documentID;
                     using var ms = new MemoryStream();
-                    documentFile.CopyTo(ms);
-                    byte[] fileBytes = ms.ToArray();
+                    await documentFile.CopyToAsync(ms);
+                    var fileBytes = ms.ToArray();
                     //creating a new document to upload to the database
                     Document document = new Document();
                     document.documentID = documentID;
                     document.documentData = fileBytes;
+                    document.fileName = Path.GetFileName(documentFile.FileName);
+                    document.contentType = documentFile.ContentType;
+
                     //trying to add document to db (Teddy Smith, 2022):
-                    _documentInterface.Add(document);
+                    await _documentInterface.Add(document);
                 }
                 
 
@@ -97,6 +102,27 @@ namespace ST10405508_PROG7312_Part1.Controllers
                 _logger.LogError("Error with adding report issue: " + ex.Message);
                 return View();
             }
+        }
+
+        public async Task<IActionResult> GetDocument(string documentId)
+        {
+            //making sure the file is not empty (Microsoftlearn, 2025):
+            if (string.IsNullOrEmpty(documentId))
+                return NotFound();
+            //getting the document from the db (Teddy Smith, 2022):
+            var document = await _documentInterface.GetById(documentId);
+            if (document == null || document.documentData == null)
+                return NotFound();
+            
+            var contentType = !string.IsNullOrEmpty(document.contentType)
+                ? document.contentType
+                : "application/octet-stream";
+
+            var fileName = !string.IsNullOrEmpty(document.fileName)
+                ? document.fileName
+                : $"Document_{document.documentID}";
+            //returning the file data (MicrosoftLearn, 2025):
+            return File(document.documentData, contentType, fileName);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ST10405508_PROG7312_Part1.Interfaces
         Task<int> GetCount();
 
         Task<Document> GetById(string id);
-        bool Add(Document document);
+        Task<bool> Add(Document document);
         bool Delete(Document document);
         bool Save();
 

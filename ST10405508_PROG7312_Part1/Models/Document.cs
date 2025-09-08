@@ -8,6 +8,8 @@ namespace ST10405508_PROG7312_Part1.Models
         [Key]
         public string documentID { get; set; }
         public byte[] documentData { get; set; }
+        public string? contentType { get; set; }
+        public string? fileName { get; set; }
 
 
     }

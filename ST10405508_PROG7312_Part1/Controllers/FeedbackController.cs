@@ -37,21 +37,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
             {
                 if (!string.IsNullOrEmpty(feedback.title) && !string.IsNullOrEmpty(feedback.description))
                 {
-                    if (documentFile != null && documentFile.Length != 0)
-                    {
-                        // setting ids to be unique for the database (MicrosoftLearn, 2025):
-                        var documentID = "D" + Guid.NewGuid().ToString("N"); ;
-                        feedback.documentID = documentID;
-                        using var ms = new MemoryStream();
-                        documentFile.CopyTo(ms);
-                        byte[] fileBytes = ms.ToArray();
-                        //creating a new document to upload to the database
-                        Document document = new Document();
-                        document.documentID = documentID;
-                        document.documentData = fileBytes;
-                        //trying to add document to db (Teddy Smith, 2022):
-                        _documentInterface.Add(document);
-                    }
+                    
                     //Storing the user info and feedback (Anderson, Larkin & LaRose, 2025; Teddy Smith, 2022):
                     feedback.userID = HttpContext.Session.GetString("uID");
                     //creating new unique key for feedbackid (MicrosoftLearn, 2025):
@@ -61,7 +47,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
                     //adding the user to the database (Teddy Smith, 2022):
                     bool added = _feedbackRepo.Add(feedback);
 
-                    return RedirectToAction("MyFeedbacks");
+                    return RedirectToAction("ViewFeedback");
 
                 }
                 ViewBag.ErrorMsg = "All Fields are required!";
@@ -85,6 +71,7 @@ namespace ST10405508_PROG7312_Part1.Controllers
 
             return View(allFeedbacks);
         }
+
     }
 }
 //reference List: 

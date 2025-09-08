@@ -15,6 +15,7 @@ else
     <table class="table table-striped">
         <thead>
             <tr>
+                <!--displaying the headings for the table (BoostMyTool, 2022):-->
                 <th>Title</th>
                 <th>Description</th>
                 <th>Status</th>
@@ -25,6 +26,7 @@ else
             @foreach (var feedback in Model)
             {
                 <tr>
+                    <!--displaying the feedback info (BoostMyTool, 2022):-->
                     <td>@feedback.title</td>
                     <td>@feedback.description</td>
                     <td>@feedback.status</td>
@@ -34,3 +36,10 @@ else
         </tbody>
     </table>
 }
+
+<!--
+Reference List:
+
+BoostMyTool. 2022. Create ASP.NET Core Web Application With SQL Server Database Connection and CRUD Operations. [Online Video] Available at: https://www.youtube.com/watch?v=T-e554Zt3n4&ab_channel=BoostMyTool [Accessed 8 September 2025].
+
+-->

@@ -14,9 +14,8 @@ namespace ST10405508_PROG7312_Part1.Repository
             _context = context;
         }
         //CRUD operations with entity framework and some custom functions (Teddy Smith, 2022):
-        public bool Add(Document document)
+        public async Task<bool> Add(Document document)
         {
-
             _context.Add(document);
             return Save();
         }

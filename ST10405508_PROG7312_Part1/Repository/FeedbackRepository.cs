@@ -27,7 +27,7 @@ namespace ST10405508_PROG7312_Part1.Repository
         //A custom method that will return the specific feedback (Teddy Smith, 2022):
         public async Task<Feedback> GetById(string id)
         {
-            return await _context.feedbacks.FirstOrDefaultAsync(i => i.documentID == id);
+            return await _context.feedbacks.FirstOrDefaultAsync(i => i.feedbackID == id);
         }
         public async Task<int> GetCount()
         {

@@ -24,6 +24,7 @@ else
                 <th>Location</th>
                 <th>Date</th>
                 <th>User ID</th>
+                <th>Document</th>
             </tr>
         </thead>
         <tbody>
@@ -38,6 +39,29 @@ else
                     <td>@report.location</td>
                     <td>@report.reportDate</td>
                     <td>@report.userID</td>
+                    <td>
+                        <!--bootstrap flex to help load the image correctly (Bootstrap, 2025):-->
+                    @if (!string.IsNullOrEmpty(report.documentID))
+                    {
+                        <div class="d-flex align-items-center gap-2">
+                            <a asp-action="GetDocument"
+                               asp-route-documentId="@report.documentID"
+                               class="btn btn-sm btn-secondary">
+                                Download
+                            </a>
+
+                            <img src="@Url.Action("GetDocument", "ReportIssue", new { documentId = report.documentID })"
+                                 alt="Preview"
+                                 style="width:40px; height:40px; object-fit:cover;"
+                                 onerror="this.style.display='none';" />
+                        </div>
+                        
+                    }
+                    else
+                    {
+                        <span>No File</span>
+                    }
+                    </td>
                 </tr>
             }
         </tbody>
@@ -48,4 +72,5 @@ Reference List:
 
 BoostMyTool. 2022. Create ASP.NET Core Web Application With SQL Server Database Connection and CRUD Operations. [Online Video] Available at: https://www.youtube.com/watch?v=T-e554Zt3n4&ab_channel=BoostMyTool [Accessed 8 September 2025].
 
+Bootstrap. 2025. Boostrap 5 flex. [Online]. Available at: https://getbootstrap.com/docs/5.3/utilities/flex/ [Accessed 8 September 2025]
 -->
